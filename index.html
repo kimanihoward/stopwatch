@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YU Stopwatch</title>
+    
+</head>
+
+<style>
+
+header {
+    text-align: center;
+    background-color: darkorange;
+    padding: 30px;
+}
+header h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    font-weight: bold;
+}
+
+body{
+    background-color:darkolivegreen !important;
+}
+
+.clock{
+    border: black 2px solid;
+    background-color: rgb(206, 157, 66);
+    box-shadow: darkblue 7px 7px 7px ;
+    text-align: center  ;
+    color: white;
+    font-size: 7vw;
+    padding: 50px;
+}
+.button{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.button a{
+    display: inline-block;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding: 2px;
+    font-size: 5vw;
+    background-color: darkblue;
+    box-shadow: orangered;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+@media screen and (max-width:900px) {
+    
+    .button a{
+        display:flex;
+        flex-direction: column;
+        margin-top: 8%;
+    }
+    
+}
+
+</style>
+<body>
+    <header>
+        <h1>CIS 301 JAVASCRIPT STOPWATCH</h1>
+    </header>
+    <main>
+        <div class="clock" >
+            <p id = "MyClockDisplay" onload="base()"></p>
+        </div>
+        <div class="button">
+            <a href="#" id="start" onclick="start()">Start</a>
+            <a href="#" id="stop" onclick="stop()">Stop</a>
+            <a href="#" id="reset" onclick="reset()">Reset</a>
+
+        </div>
+
+
+        <script>
+            //VARIABLE INITIZLATION
+            minutes = 0;
+            seconds = 0;
+            mili = 0;
+            timer = null;
+
+//SHOWS THE CLOCK
+function base(){
+    let time = minutes + ":" + seconds + ":" + mili ;
+    document.getElementById("MyClockDisplay").innerHTML = time;
+    document.getElementById("MyClockDisplay").textContent = time;
+    
+}
+base();
+
+
+//ADDS TO THE CLOCK
+function start(){
+  
+    if (mili != 10){
+        mili = mili+1;
+    }
+    //AFTER EVERY 1000 MILISECONDS ONE SECOND IS ADDED AND MILI IS SET BACK TO ZERO
+    if (mili == 10){
+        
+            seconds ++;
+        mili = 0;
+    }
+    //AFTER 60 SECONDS A 1 IS ADDED TO MINUTE AND SECONDS IS SET BACK TO ZERO
+    if (seconds == 60){
+        minutes++;
+        seconds = 0;
+    }
+    //ALERT WHEN STOP WATCH REACH ONE HOUR
+    if (minutes == 60 && seconds == 60 && mili ==10){
+        alert("You have reached the maximum time limit of one hour.")
+    }
+
+    
+    console.log(seconds);
+    //DISPLAY
+    let time = minutes + ":" + seconds + ":" + mili;
+    document.getElementById("MyClockDisplay").innerHTML = time;
+    document.getElementById("MyClockDisplay").textContent = time;
+    timer = setTimeout(start,100);
+    timer ;
+}
+
+function reset(){
+    //SETS MINUTES SECONDS AND MILISECONDS TO ZERO AND DISPLAYS THAT
+    minutes = 0;
+    seconds = 0;
+    mili = 0;
+    let time = minutes + ":" + seconds + ":" + mili ;
+    document.getElementById("MyClockDisplay").innerHTML = time;
+    document.getElementById("MyClockDisplay").textContent = time;
+}
+
+//CANCELS THE TIMEOUT FUNCTIONS AND STORES VALUES BEFORE THE UNTIMELY DEMISE OF THE FUCNTION
+function stop(){
+    clearTimeout(timer);
+    let currentMinute = minutes;
+    let currentSeconds = seconds;
+    let currentMili =mili;
+
+
+    console.log("Trying to pause")
+    let time = currentMinute + ":" + currentSeconds + ":" + currentMili ;
+    document.getElementById("MyClockDisplay").innerHTML = time;
+    document.getElementById("MyClockDisplay").textContent = time;
+    
+    mili = currentMili;
+    seconds = currentSeconds;
+    minutes = currentMinute;
+}
+        </script>
+    </main>
+    <br>
+    <br>
+    <footer>Kimani Howard</footer>
+</body>
+
+</html>
